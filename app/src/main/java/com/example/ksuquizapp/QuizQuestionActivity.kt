@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 
 
-private var userName: String? = null
+/*private var userName: String? = null
 
 private val questionsList: ArrayList<Question> = Constants.getQuestions()
 private var currentQuestionIndex = 0;
@@ -23,4 +23,4 @@ private var ivImage: ImageView? = null
 private var progressBar: ProgressBar? = null
 private var tvProgress: TextView? = null
 private var btnSubmit: Button? = null
-private var tvAlternatives: ArrayList<TextView>? = null
+private var tvAlternatives: ArrayList<TextView>? = null*/
