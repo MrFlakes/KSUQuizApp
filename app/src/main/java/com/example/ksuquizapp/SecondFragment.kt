@@ -1,12 +1,15 @@
 package com.example.ksuquizapp
 
+import android.content.res.ColorStateList
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
+import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.Fragment
 import com.example.ksuquizapp.databinding.FragmentSecondBinding
 
 /**
@@ -31,8 +34,17 @@ class SecondFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("createView", "Frag 2 OnViewCreated Called")
         binding.button1.setOnClickListener{
-            Log.d("button1", "Clicked button1")
+            binding.button1.text = "I've changed"
+            binding.button1.setBackgroundTintList(ColorStateList.valueOf(
+                ResourcesCompat.getColor(
+                    getResources(), R.color.ksu_green, null)))
+            Handler(Looper.getMainLooper()).postDelayed({
+                val helper = Helper()
+                helper.recreateActivityCompat(activity)
+            }, 1000)
+
         }
     }
     override fun onDestroyView() {
