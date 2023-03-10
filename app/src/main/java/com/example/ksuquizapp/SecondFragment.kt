@@ -1,6 +1,7 @@
 package com.example.ksuquizapp
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -26,17 +27,14 @@ class SecondFragment : Fragment() {
 
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.buttonSecond.setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+        binding.button1.setOnClickListener{
+            Log.d("button1", "Clicked button1")
         }
     }
-//dsohiosadhoa
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
