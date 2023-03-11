@@ -4,25 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SecondFragment"
-    android:background="@color/ksu_yellow">
+    android:background="@color/ksu_yellow"
+    tools:context=".SecondFragment">
 
-    <include
-        android:id="@+id/include"
-        layout="@layout/header_and_footer" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/questionText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="75dp"
         android:background="@color/ksu_black"
+        android:fontFamily="@font/montserrat"
         android:padding="10sp"
         android:text="What is the name of the library located on  the Marietta campus?"
         android:textAlignment="center"
         android:textColor="@color/ksu_white"
         android:textSize="25sp"
-        android:fontFamily="@font/montserrat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="What is the name of the library located on  the Marietta campus?" />
@@ -56,6 +53,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
     <Button
         android:id="@+id/button_3"
         android:layout_width="200dp"
@@ -100,18 +98,42 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="176dp"
-        android:layout_height="134dp"
-        android:layout_marginEnd="-400dp"
-        android:layout_marginBottom="-225dp"
+        android:id="@+id/logoText"
+        android:layout_width="216dp"
+        android:layout_height="108dp"
+        android:layout_marginStart="225dp"
+        android:layout_marginBottom="60dp"
         android:fontFamily="@font/montserrat"
-        android:text="Do You Know\nKSU?"
-        android:textAlignment="center"
+        android:text="Do You\nKnow KSU?"
+        android:textAlignment="textStart"
         android:textAllCaps="false"
         android:textColor="@color/ksu_black"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
-        app:layout_constraintEnd_toStartOf="@+id/include" />
+        android:textSize="32sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Score:"
+        android:textColor="@color/ksu_black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/questionNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Question 1/10"
+        android:textColor="@color/ksu_black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
