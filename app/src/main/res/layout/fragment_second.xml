@@ -4,24 +4,136 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/ksu_yellow"
     tools:context=".SecondFragment">
 
+
     <TextView
-        android:id="@+id/textview_second"
+        android:id="@+id/questionText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/button_second"
+        android:layout_marginTop="75dp"
+        android:background="@color/ksu_black"
+        android:fontFamily="@font/montserrat"
+        android:padding="10sp"
+        android:text="What is the name of the library located on  the Marietta campus?"
+        android:textAlignment="center"
+        android:textColor="@color/ksu_white"
+        android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="What is the name of the library located on  the Marietta campus?" />
+
+    <Button
+        android:id="@+id/button_1"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="-200dp"
+        android:layout_marginBottom="400dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Lawrence V. Johnson Library"
+        android:textColor="@color/ksu_white"
+        android:textSize="15sp"
+        app:backgroundTint="@color/ksu_black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button_2"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="-200dp"
+        android:layout_marginBottom="400dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Rossbacher Library"
+        android:textColor="@color/ksu_white"
+        android:textSize="15sp"
+        app:backgroundTint="@color/ksu_black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button_3"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="-200dp"
+        android:layout_marginBottom="300dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Horace W. Sturgis Library"
+        android:textColor="@color/ksu_white"
+        android:textSize="15sp"
+        app:backgroundTint="@color/ksu_black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button_4"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="-200dp"
+        android:layout_marginBottom="300dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Joe Mack Wilson Library"
+        android:textColor="@color/ksu_white"
+        android:textSize="15sp"
+        app:backgroundTint="@color/ksu_black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="352dp"
+        android:layout_height="274dp"
+        android:layout_marginStart="-50dp"
+        android:layout_marginBottom="24dp"
+        android:src="@drawable/new_logo__png_"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/logoText"
+        android:layout_width="216dp"
+        android:layout_height="108dp"
+        android:layout_marginStart="225dp"
+        android:layout_marginBottom="60dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Do You\nKnow KSU?"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
+        android:textColor="@color/ksu_black"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Score:"
+        android:textColor="@color/ksu_black"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button_second"
+    <TextView
+        android:id="@+id/questionNum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/previous"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Question 1/10"
+        android:textColor="@color/ksu_black"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_second" />
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

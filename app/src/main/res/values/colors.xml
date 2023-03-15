@@ -7,4 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="ksu_yellow">#FFFFC629</color>
+    <color name="ksu_black">#FF242325</color>
+    <color name="ksu_powder_blue">#FFAFC2D5</color>
+    <color name="ksu_white">#FFF1FAEE</color>
+    <color name="ksu_green">#FF2DC653</color>
+    <color name="ksu_red">#FFCE4257</color>
 </resources>
