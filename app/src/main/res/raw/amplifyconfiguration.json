@@ -1,15 +1,99 @@
 {
-  "api": {
-    "plugins": {
-      "awsAPIPlugin": {
-        "[API NAME]": {
-          "endpointType": "GraphQL",
-          "endpoint": "https://aaaaaaaaaaaaaaaaaaaaaaaaaa.appsync-api.us-east-1.amazonaws.com/graphql",
-          "region": "us-east-1",
-          "authorizationType": "API_KEY"
-
+    "UserAgent": "aws-amplify-cli/2.0",
+    "Version": "1.0",
+    "api": {
+        "plugins": {
+            "awsAPIPlugin": {
+                "KSUquizett": {
+                    "endpointType": "GraphQL",
+                    "endpoint": "https://a55xijnoivbdpgljtfhr5kncw4.appsync-api.us-east-1.amazonaws.com/graphql",
+                    "region": "us-east-1",
+                    "authorizationType": "API_KEY",
+                    "apiKey": "da2-vs4qih6lf5hrdfb5exi4c76xw4"
+                }
+            }
         }
-      }
+    },
+    "auth": {
+        "plugins": {
+            "awsCognitoAuthPlugin": {
+                "UserAgent": "aws-amplify-cli/0.1.0",
+                "Version": "0.1.0",
+                "IdentityManager": {
+                    "Default": {}
+                },
+                "AppSync": {
+                    "Default": {
+                        "ApiUrl": "https://a55xijnoivbdpgljtfhr5kncw4.appsync-api.us-east-1.amazonaws.com/graphql",
+                        "Region": "us-east-1",
+                        "AuthMode": "API_KEY",
+                        "ApiKey": "da2-vs4qih6lf5hrdfb5exi4c76xw4",
+                        "ClientDatabasePrefix": "KSUquizett_API_KEY"
+                    },
+                    "KSUquizett_AWS_IAM": {
+                        "ApiUrl": "https://a55xijnoivbdpgljtfhr5kncw4.appsync-api.us-east-1.amazonaws.com/graphql",
+                        "Region": "us-east-1",
+                        "AuthMode": "AWS_IAM",
+                        "ClientDatabasePrefix": "KSUquizett_AWS_IAM"
+                    }
+                },
+                "CredentialsProvider": {
+                    "CognitoIdentity": {
+                        "Default": {
+                            "PoolId": "us-east-1:8414e384-3b16-4932-8abb-d58742f89a21",
+                            "Region": "us-east-1"
+                        }
+                    }
+                },
+                "CognitoUserPool": {
+                    "Default": {
+                        "PoolId": "us-east-1_HksvnpK8B",
+                        "AppClientId": "4d23a667hfs5u4k9gphmj4ns5r",
+                        "Region": "us-east-1"
+                    }
+                },
+                "Auth": {
+                    "Default": {
+                        "authenticationFlowType": "USER_SRP_AUTH",
+                        "mfaConfiguration": "OFF",
+                        "mfaTypes": [
+                            "SMS"
+                        ],
+                        "passwordProtectionSettings": {
+                            "passwordPolicyMinLength": 8,
+                            "passwordPolicyCharacters": [
+                                "REQUIRES_LOWERCASE",
+                                "REQUIRES_NUMBERS",
+                                "REQUIRES_SYMBOLS",
+                                "REQUIRES_UPPERCASE"
+                            ]
+                        },
+                        "signupAttributes": [],
+                        "socialProviders": [],
+                        "usernameAttributes": [
+                            "EMAIL"
+                        ],
+                        "verificationMechanisms": [
+                            "EMAIL"
+                        ]
+                    }
+                },
+                "S3TransferUtility": {
+                    "Default": {
+                        "Bucket": "quizett-storage210551-staging",
+                        "Region": "us-east-1"
+                    }
+                }
+            }
+        }
+    },
+    "storage": {
+        "plugins": {
+            "awsS3StoragePlugin": {
+                "bucket": "quizett-storage210551-staging",
+                "region": "us-east-1",
+                "defaultAccessLevel": "guest"
+            }
+        }
     }
-  }
 }

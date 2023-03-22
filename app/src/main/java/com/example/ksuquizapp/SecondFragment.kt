@@ -4,12 +4,16 @@ import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import com.amplifyframework.api.graphql.model.ModelQuery
+import com.amplifyframework.core.Amplify
+import com.amplifyframework.datastore.generated.model.Questions
 import com.example.ksuquizapp.databinding.FragmentSecondBinding
 
 /**
@@ -38,6 +42,7 @@ class SecondFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         _index = Manager.progress - 1
         if(_index > 0) _index %= 2
 

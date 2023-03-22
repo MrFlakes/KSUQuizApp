@@ -10,9 +10,8 @@ import com.amplifyframework.api.aws.AWSApiPlugin
 class AmplifyApp : Application() {
     override fun onCreate() {
         super.onCreate()
-
+        Log.d("AppCreate", "Created App")
         try { // syncs data to backend automatically
-
             Amplify.addPlugin(AWSApiPlugin())
             Amplify.addPlugin(AWSDataStorePlugin())
             Amplify.configure(applicationContext)
