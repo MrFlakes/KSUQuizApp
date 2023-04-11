@@ -38,20 +38,34 @@ class FirstFragment : Fragment() {
         Log.i("OnViewCreated", "CreatedView")
 
 
-        Amplify.DataStore.query(
-            Questions::class.java,
-            { items ->
-                while (items.hasNext()) {
-                    val item = items.next()
-                    Log.i("Amplifyy", "Queried item: " + item.id)
+        /*  Amplify.DataStore.query(
+              Questions::class.java,
+              { items ->
+                  while (items.hasNext()) {
+                      val item = items.next()
+                      Log.i("Amplifyy", "Queried item: " + item.id)
+                  }
+              },
+              { failure -> Log.e("Amplifyy", "Could not query DataStore", failure) }
+          )
+          binding.buttonFirst.setOnClickListener {
+              findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+          }*/
+
+        var number = 1
+        while (number>0) {number++}
+        Amplify.API.query(
+            ModelQuery.list (Questions::class.java, Questions.QUESTION_NO.contains(number.toString())), // wait to update to Int
+            { response ->
+                response.data.forEach { Questions ->
+                    // Where.matches(Questions.questionNo)
+                    Log.i("MyAmplifyApp", Questions.questionNo.toString())
                 }
             },
-            { failure -> Log.e("Amplifyy", "Could not query DataStore", failure) }
+            { Log.e("MyAmplifyApp", "Query failure", it) }
         )
-        binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-        }
     }
+
 
 
 

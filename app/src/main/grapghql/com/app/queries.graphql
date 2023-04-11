@@ -1,0 +1,19 @@
+type query GetAllQues {
+    getQuestions {
+        Answer
+        Question
+        QuestionNo
+        id
+    }
+
+
+
+}
+
+query getQuestionsById{
+
+}
+
+
+
+

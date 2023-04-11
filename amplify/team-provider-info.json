@@ -10,6 +10,14 @@
       "StackName": "amplify-amplify5a8f1b5c175a4-staging-210551",
       "StackId": "arn:aws:cloudformation:us-east-1:695858250282:stack/amplify-amplify5a8f1b5c175a4-staging-210551/0368e3b0-b93e-11ed-ba52-1260d77cfdf9",
       "AmplifyAppId": "dyusmqq6xasl9"
+    },
+    "categories": {
+      "auth": {
+        "KSUquizett": {}
+      },
+      "storage": {
+        "s3quizettstorage": {}
+      }
     }
   }
 }
