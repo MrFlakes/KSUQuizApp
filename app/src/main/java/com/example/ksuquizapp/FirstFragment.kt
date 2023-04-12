@@ -63,7 +63,7 @@ private fun getQuestionFuntion(id: String) {
         ModelQuery.get(Questions::class.java, id),
 
 
-        { Log.i("MyAmplifyApp", "${(it.data as Questions).question }Question Number")},
+        { Log.i("MyAmplifyApp", "${(it.data as Questions).question }")},
 
 
         { Log.e("MyAmplifyApp", "Query failure", )
@@ -74,6 +74,8 @@ private fun getQuestionFuntion(id: String) {
 
 }
 
+    // -Generate a numberlist
+    //- pull everything, save into list
 
     override fun onDestroyView() {
         super.onDestroyView()
