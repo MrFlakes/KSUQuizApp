@@ -52,6 +52,8 @@ public final class Questions implements Model {
   public String getQuestion() {
       return Question;
   }
+
+  public String getQuestionsById() {return  Question;}
   
   public List<String> getAnswer() {
       return Answer;
@@ -173,7 +175,7 @@ public final class Questions implements Model {
 
   public static class Builder implements QuestionNoStep, AnswerStep, BuildStep {
     private String id;
-    private Integer QuestionNo;
+     Integer QuestionNo;
     private List<String> Answer;
     private String Question;
     private String correctAnswer;

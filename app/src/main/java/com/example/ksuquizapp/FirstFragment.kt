@@ -6,11 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import com.amplifyframework.api.graphql.model.ModelQuery
 import com.amplifyframework.core.Amplify
+import com.amplifyframework.core.model.query.Where
 import com.amplifyframework.datastore.generated.model.Questions
+import com.amplifyframework.datastore.generated.model.Questions.QUESTION_NO
 import com.example.ksuquizapp.databinding.FragmentFirstBinding
+
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -37,7 +39,9 @@ class FirstFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Log.i("OnViewCreated", "CreatedView")
 
+       getQuestionFuntion("da01ac33-bde1-4bc2-89bf-f1b307271a7f")
 
+       Log.i("QuestionOne" , getQuestionFuntion("da01ac33-bde1-4bc2-89bf-f1b307271a7f").toString())
         /*  Amplify.DataStore.query(
               Questions::class.java,
               { items ->
@@ -52,21 +56,23 @@ class FirstFragment : Fragment() {
               findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
           }*/
 
-        var number = 1
-        while (number>0) {number++}
-        Amplify.API.query(
-            ModelQuery.list (Questions::class.java, Questions.QUESTION_NO.contains(number.toString())), // wait to update to Int
-            { response ->
-                response.data.forEach { Questions ->
-                    // Where.matches(Questions.questionNo)
-                    Log.i("MyAmplifyApp", Questions.questionNo.toString())
-                }
-            },
-            { Log.e("MyAmplifyApp", "Query failure", it) }
-        )
     }
 
+private fun getQuestionFuntion(id: String) {
+    Amplify.API.query(
+        ModelQuery.get(Questions::class.java, id),
 
+
+        { Log.i("MyAmplifyApp", "${(it.data as Questions).question }Question Number")},
+
+
+        { Log.e("MyAmplifyApp", "Query failure", )
+
+
+
+        })
+
+}
 
 
     override fun onDestroyView() {
