@@ -7,9 +7,13 @@ import androidx.navigation.ui.AppBarConfiguration
 import com.amplifyframework.AmplifyException
 import com.amplifyframework.api.aws.AWSApiPlugin
 import com.amplifyframework.api.aws.AWSApiPluginConfiguration
+import com.amplifyframework.api.graphql.model.ModelQuery
 import com.amplifyframework.core.Amplify
+import com.amplifyframework.core.model.query.Where
 import com.amplifyframework.datastore.AWSDataStorePlugin
+import com.amplifyframework.datastore.generated.model.Questions
 import com.example.ksuquizapp.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,5 +25,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }
+
 
 }

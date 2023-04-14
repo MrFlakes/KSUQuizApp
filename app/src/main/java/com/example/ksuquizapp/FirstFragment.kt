@@ -2,16 +2,19 @@ package com.example.ksuquizapp
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.amplifyframework.api.graphql.model.ModelQuery
 import com.amplifyframework.core.Amplify
-import com.amplifyframework.core.model.query.Where
+import com.amplifyframework.core.Consumer
+import com.amplifyframework.core.model.query.predicate.QueryField
+import com.amplifyframework.datastore.DataStoreException
+import com.amplifyframework.datastore.DataStoreItemChange
 import com.amplifyframework.datastore.generated.model.Questions
-import com.amplifyframework.datastore.generated.model.Questions.QUESTION_NO
 import com.example.ksuquizapp.databinding.FragmentFirstBinding
+
 
 
 /**
@@ -50,32 +53,75 @@ class FirstFragment : Fragment() {
                       Log.i("Amplifyy", "Queried item: " + item.id)
                   }
               },
-              { failure -> Log.e("Amplifyy", "Could not query DataStore", failure) }
           )
           binding.buttonFirst.setOnClickListener {
               findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
           }*/
 
     }
+     //   Log.d("Question", QuestionText)
 
+        StoreQuestionList()
+        Log.d("All Questions" ,   StoreQuestionList().toString())
+    }
 private fun getQuestionFuntion(id: String) {
     Amplify.API.query(
         ModelQuery.get(Questions::class.java, id),
 
 
-        { Log.i("MyAmplifyApp", "${(it.data as Questions).question }")},
+        { Log.i("MyAmplifyApp", (it.data as Questions).question)},
 
 
-        { Log.e("MyAmplifyApp", "Query failure", )
+        { Log.e("MyAmplifyApp", "Query failure")
 
 
 
         })
 
 }
+    private fun ListAllQuestion() {
 
-    // -Generate a numberlist
-    //- pull everything, save into list
+        Amplify.DataStore.query(
+            Questions::class.java,
+            { items ->
+                while (items.hasNext()) {
+                    val item = items.next()
+                    Log.i("Amplify", "Queried item: " + item.id)
+                }
+            },
+            { failure -> Log.e("Tutorial", "Could not query DataStore", failure) }
+        )
+    }
+
+   /* private fun getQuestionFuntion2(id: Int): String {
+
+    var myString: String= ""
+    Amplify.DataStore.query(
+    Questions::class.java,
+    { results ->
+        if (!results.hasNext()) {
+            val myModel = results.equals(Questions.QUESTION_NO.eq(id))
+            myString = myModel.toString()
+        }
+    }, { error -> Log.e("Query failed", error.toString()) }
+        )
+
+        return myString;
+
+    }*/
+
+// create a list with all id's.
+
+
+    private fun StoreQuestionList(): List<Unit> {
+        // -Generate a numberlist
+
+        val QuestionList = listOf(ListAllQuestion())
+
+        //- pull everything, save into list
+        return QuestionList
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
