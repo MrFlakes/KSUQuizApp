@@ -26,5 +26,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
     }
 
+// Setup a GraphQL client to use the endpoint
+
+  //  const client = new Client("https://a55xijnoivbdpgljtfhr5kncw4.appsync-api.us-east-1.amazonaws.com/graphql");
+
+
+// Now, send your query as a string (Note that ` is used to create a multi-line
+// string in javascript).
+
 
 }

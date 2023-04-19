@@ -1,0 +1,244 @@
+input CreateQuestionsInput {
+  id: ID
+  QuestionNo: Int!
+  Question: String
+  Answer: [String!]!
+  correctAnswer: String
+  _version: Int
+}
+
+input DeleteQuestionsInput {
+  id: ID!
+  _version: Int
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelQuestionsConditionInput {
+  QuestionNo: ModelIntInput
+  Question: ModelStringInput
+  Answer: ModelStringInput
+  correctAnswer: ModelStringInput
+  and: [ModelQuestionsConditionInput]
+  or: [ModelQuestionsConditionInput]
+  not: ModelQuestionsConditionInput
+}
+
+type ModelQuestionsConnection {
+  items: [Questions]!
+  nextToken: String
+
+}
+
+input ModelQuestionsFilterInput {
+  id: ModelIDInput
+  QuestionNo: ModelIntInput
+  Question: ModelStringInput
+  Answer: ModelStringInput
+  correctAnswer: ModelStringInput
+  and: [ModelQuestionsFilterInput]
+  or: [ModelQuestionsFilterInput]
+  not: ModelQuestionsFilterInput
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelSubscriptionBooleanInput {
+  ne: Boolean
+  eq: Boolean
+}
+
+input ModelSubscriptionFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  in: [Float]
+  notIn: [Float]
+}
+
+input ModelSubscriptionIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  in: [ID]
+  notIn: [ID]
+}
+
+input ModelSubscriptionIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  in: [Int]
+  notIn: [Int]
+}
+
+input ModelSubscriptionQuestionsFilterInput {
+  id: ModelSubscriptionIDInput
+  QuestionNo: ModelSubscriptionIntInput
+  Question: ModelSubscriptionStringInput
+  Answer: ModelSubscriptionStringInput
+  correctAnswer: ModelSubscriptionStringInput
+  and: [ModelSubscriptionQuestionsFilterInput]
+  or: [ModelSubscriptionQuestionsFilterInput]
+}
+
+input ModelSubscriptionStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  in: [String]
+  notIn: [String]
+}
+
+type Mutation {
+  createQuestions(input: CreateQuestionsInput!, condition: ModelQuestionsConditionInput): Questions
+
+  updateQuestions(input: UpdateQuestionsInput!, condition: ModelQuestionsConditionInput): Questions
+
+  deleteQuestions(input: DeleteQuestionsInput!, condition: ModelQuestionsConditionInput): Questions
+
+}
+
+type Query {
+  getQuestions(id: ID!): Questions
+  getQuestionsByQuestionNo(QuestionNo: Int): Questions
+  listQuestions(filter: ModelQuestionsFilterInput, limit: Int, nextToken: String): ModelQuestionsConnection
+
+  syncQuestions(
+    filter: ModelQuestionsFilterInput,
+    limit: Int,
+    nextToken: String,
+  ): ModelQuestionsConnection
+
+}
+
+type Questions  {
+  id: ID!
+  QuestionNo: Int!
+  Question: String
+  Answer: [String!]!
+  correctAnswer: String
+
+  _version: Int!
+  _deleted: Boolean
+
+}
+
+
+input UpdateQuestionsInput {
+  id: ID!
+  QuestionNo: Int
+  Question: String
+  Answer: [String!]
+  correctAnswer: String
+  _version: Int
+}

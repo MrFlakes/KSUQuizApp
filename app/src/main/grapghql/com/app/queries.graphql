@@ -1,28 +1,12 @@
 
-type Questions {
-    id: ID!
-    QuestionNo: Int!
-    Question: String
-    Answer: [String!]!
-    correctAnswer: String
-    _version: Int!
-    _deleted: Boolean
-
-}
-
-
-
-
-query getQuestionsById {
-    getQuestionsById(QuestionNo: $id) {
-
-            Answer
-            Question
-            QuestionNo
-            correctAnswer
-        }
+  query  getQuestions($id: String!) {
+      getQuestions(id: $id){
+        Answer
+        Question
+        QuestionNo
+        correctAnswer
     }
-
+}
 
 
 

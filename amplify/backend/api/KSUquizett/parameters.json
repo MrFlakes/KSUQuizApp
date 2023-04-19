@@ -1,5 +1,6 @@
 {
   "AppSyncApiName": "KSUquizett",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
-  "DynamoDBEnableServerSideEncryption": false
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthModeLastUpdated": "2023-04-18T22:29:26.172Z"
 }
