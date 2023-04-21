@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.amplifyframework.api.graphql.model.ModelQuery
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.model.query.Where
@@ -94,10 +95,16 @@ class SecondFragment : Fragment() {
         Handler(Looper.getMainLooper()).postDelayed({
 
             Manager.score = if (button.text.equals(rightAnswer)) Manager.score + 1 else Manager.score - 1
-            Manager.progress++
 
-            val helper = Helper()
-            helper.recreateActivityCompat(activity)
+
+            if(Manager.progress >= Manager.maxScore){
+                findNavController().navigate(R.id.action_SecondFragment_to_thirdFragment)
+            } else{
+                Manager.progress++
+                val helper = Helper()
+                helper.recreateActivityCompat(activity)
+            }
+
         }, 1000)
     }
     override fun onDestroyView() {
