@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.amplifyframework.api.graphql.model.ModelQuery
 import com.amplifyframework.core.Amplify
+import com.amplifyframework.core.model.query.Where
 import com.amplifyframework.datastore.generated.model.Questions
 import com.example.ksuquizapp.databinding.FragmentFirstBinding
 
@@ -40,14 +41,17 @@ class FirstFragment : Fragment() {
 
         Amplify.DataStore.query(
             Questions::class.java,
+            Where.matches(Questions.QUESTION_NO.eq(1)),
             { items ->
                 while (items.hasNext()) {
                     val item = items.next()
-                    Log.i("Amplifyy", "Queried item: " + item.id)
+                    Log.i("Amplifyy", "Queried item: " + item.question)
                 }
             },
             { failure -> Log.e("Amplifyy", "Could not query DataStore", failure) }
         )
+
+
         binding.buttonFirst.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }

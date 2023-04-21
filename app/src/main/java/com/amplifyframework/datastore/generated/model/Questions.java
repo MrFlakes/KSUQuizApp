@@ -24,20 +24,17 @@ import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 @ModelConfig(pluralName = "Questions", type = Model.Type.USER, version = 1, authRules = {
   @AuthRule(allow = AuthStrategy.PUBLIC, operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE, ModelOperation.READ })
 })
-@Index(name = "byResults", fields = {"resultsID"})
 public final class Questions implements Model {
   public static final QueryField ID = field("Questions", "id");
   public static final QueryField QUESTION_NO = field("Questions", "QuestionNo");
   public static final QueryField QUESTION = field("Questions", "Question");
   public static final QueryField ANSWER = field("Questions", "Answer");
   public static final QueryField CORRECT_ANSWER = field("Questions", "correctAnswer");
-  public static final QueryField RESULTS_ID = field("Questions", "resultsID");
   private final @ModelField(targetType="ID", isRequired = true) String id;
-  private final @ModelField(targetType="Int") Integer QuestionNo;
+  private final @ModelField(targetType="Int", isRequired = true) Integer QuestionNo;
   private final @ModelField(targetType="String") String Question;
   private final @ModelField(targetType="String", isRequired = true) List<String> Answer;
   private final @ModelField(targetType="String") String correctAnswer;
-  private final @ModelField(targetType="ID") String resultsID;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   public String resolveIdentifier() {
@@ -64,10 +61,6 @@ public final class Questions implements Model {
       return correctAnswer;
   }
   
-  public String getResultsId() {
-      return resultsID;
-  }
-  
   public Temporal.DateTime getCreatedAt() {
       return createdAt;
   }
@@ -76,13 +69,12 @@ public final class Questions implements Model {
       return updatedAt;
   }
   
-  private Questions(String id, Integer QuestionNo, String Question, List<String> Answer, String correctAnswer, String resultsID) {
+  private Questions(String id, Integer QuestionNo, String Question, List<String> Answer, String correctAnswer) {
     this.id = id;
     this.QuestionNo = QuestionNo;
     this.Question = Question;
     this.Answer = Answer;
     this.correctAnswer = correctAnswer;
-    this.resultsID = resultsID;
   }
   
   @Override
@@ -98,7 +90,6 @@ public final class Questions implements Model {
               ObjectsCompat.equals(getQuestion(), questions.getQuestion()) &&
               ObjectsCompat.equals(getAnswer(), questions.getAnswer()) &&
               ObjectsCompat.equals(getCorrectAnswer(), questions.getCorrectAnswer()) &&
-              ObjectsCompat.equals(getResultsId(), questions.getResultsId()) &&
               ObjectsCompat.equals(getCreatedAt(), questions.getCreatedAt()) &&
               ObjectsCompat.equals(getUpdatedAt(), questions.getUpdatedAt());
       }
@@ -112,7 +103,6 @@ public final class Questions implements Model {
       .append(getQuestion())
       .append(getAnswer())
       .append(getCorrectAnswer())
-      .append(getResultsId())
       .append(getCreatedAt())
       .append(getUpdatedAt())
       .toString()
@@ -128,14 +118,13 @@ public final class Questions implements Model {
       .append("Question=" + String.valueOf(getQuestion()) + ", ")
       .append("Answer=" + String.valueOf(getAnswer()) + ", ")
       .append("correctAnswer=" + String.valueOf(getCorrectAnswer()) + ", ")
-      .append("resultsID=" + String.valueOf(getResultsId()) + ", ")
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
       .append("updatedAt=" + String.valueOf(getUpdatedAt()))
       .append("}")
       .toString();
   }
   
-  public static AnswerStep builder() {
+  public static QuestionNoStep builder() {
       return new Builder();
   }
   
@@ -153,7 +142,6 @@ public final class Questions implements Model {
       null,
       null,
       null,
-      null,
       null
     );
   }
@@ -163,9 +151,13 @@ public final class Questions implements Model {
       QuestionNo,
       Question,
       Answer,
-      correctAnswer,
-      resultsID);
+      correctAnswer);
   }
+  public interface QuestionNoStep {
+    AnswerStep questionNo(Integer questionNo);
+  }
+  
+
   public interface AnswerStep {
     BuildStep answer(List<String> answer);
   }
@@ -174,20 +166,17 @@ public final class Questions implements Model {
   public interface BuildStep {
     Questions build();
     BuildStep id(String id);
-    BuildStep questionNo(Integer questionNo);
     BuildStep question(String question);
     BuildStep correctAnswer(String correctAnswer);
-    BuildStep resultsId(String resultsId);
   }
   
 
-  public static class Builder implements AnswerStep, BuildStep {
+  public static class Builder implements QuestionNoStep, AnswerStep, BuildStep {
     private String id;
-    private List<String> Answer;
     private Integer QuestionNo;
+    private List<String> Answer;
     private String Question;
     private String correctAnswer;
-    private String resultsID;
     @Override
      public Questions build() {
         String id = this.id != null ? this.id : UUID.randomUUID().toString();
@@ -197,20 +186,20 @@ public final class Questions implements Model {
           QuestionNo,
           Question,
           Answer,
-          correctAnswer,
-          resultsID);
+          correctAnswer);
+    }
+    
+    @Override
+     public AnswerStep questionNo(Integer questionNo) {
+        Objects.requireNonNull(questionNo);
+        this.QuestionNo = questionNo;
+        return this;
     }
     
     @Override
      public BuildStep answer(List<String> answer) {
         Objects.requireNonNull(answer);
         this.Answer = answer;
-        return this;
-    }
-    
-    @Override
-     public BuildStep questionNo(Integer questionNo) {
-        this.QuestionNo = questionNo;
         return this;
     }
     
@@ -226,12 +215,6 @@ public final class Questions implements Model {
         return this;
     }
     
-    @Override
-     public BuildStep resultsId(String resultsId) {
-        this.resultsID = resultsId;
-        return this;
-    }
-    
     /**
      * @param id id
      * @return Current Builder instance, for fluent method chaining
@@ -244,23 +227,22 @@ public final class Questions implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, Integer questionNo, String question, List<String> answer, String correctAnswer, String resultsId) {
+    private CopyOfBuilder(String id, Integer questionNo, String question, List<String> answer, String correctAnswer) {
       super.id(id);
-      super.answer(answer)
-        .questionNo(questionNo)
+      super.questionNo(questionNo)
+        .answer(answer)
         .question(question)
-        .correctAnswer(correctAnswer)
-        .resultsId(resultsId);
-    }
-    
-    @Override
-     public CopyOfBuilder answer(List<String> answer) {
-      return (CopyOfBuilder) super.answer(answer);
+        .correctAnswer(correctAnswer);
     }
     
     @Override
      public CopyOfBuilder questionNo(Integer questionNo) {
       return (CopyOfBuilder) super.questionNo(questionNo);
+    }
+    
+    @Override
+     public CopyOfBuilder answer(List<String> answer) {
+      return (CopyOfBuilder) super.answer(answer);
     }
     
     @Override
@@ -271,11 +253,6 @@ public final class Questions implements Model {
     @Override
      public CopyOfBuilder correctAnswer(String correctAnswer) {
       return (CopyOfBuilder) super.correctAnswer(correctAnswer);
-    }
-    
-    @Override
-     public CopyOfBuilder resultsId(String resultsId) {
-      return (CopyOfBuilder) super.resultsId(resultsId);
     }
   }
   
