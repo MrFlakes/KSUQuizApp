@@ -13,6 +13,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.amplifyframework.api.graphql.model.ModelQuery
 import com.amplifyframework.core.Amplify
+import com.amplifyframework.core.model.query.Where
 import com.amplifyframework.datastore.generated.model.Questions
 import com.example.ksuquizapp.databinding.FragmentSecondBinding
 
@@ -43,27 +44,36 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        _index = Manager.progress - 1
-        if(_index > 0) _index %= 2
-
         var s = "Score: ${Manager.score}"
         var q = "Question ${Manager.progress}/10"
 
         binding.score.text = s
         binding.questionNum.text = q
-        binding.questionText.text = Manager.questions[_index].question
-
-        _buttons = arrayOf(binding.button1, binding.button2, binding.button3, binding.button4)
-        _buttons.shuffle()
 
 
-        for(b in _buttons){
-            b.setOnClickListener{checkAnswer(b)}
-        }
-        _buttons[0].text = Manager.questions[_index].rightAnswer
-        _buttons[1].text = Manager.questions[_index].alternatives[0]
-        _buttons[2].text = Manager.questions[_index].alternatives[1]
-        _buttons[3].text = Manager.questions[_index].alternatives[2]
+        Amplify.DataStore.query(
+            Questions::class.java,
+            Where.matches(Questions.QUESTION_NO.eq(Manager.progress)),
+            { items ->
+                while (items.hasNext()) {
+
+                    val item = items.next()
+                    binding.questionText.text = item.question
+                    _buttons = arrayOf(binding.button1, binding.button2, binding.button3, binding.button4)
+                    _buttons.shuffle()
+
+                    for(b in _buttons){
+                        b.setOnClickListener{checkAnswer(b, item.correctAnswer)}
+                    }
+                    _buttons[0].text = item.answer[0]
+                    _buttons[1].text = item.answer[1]
+                    _buttons[2].text = item.answer[2]
+                    _buttons[3].text = item.answer[3]
+                    Log.i("Amplifyy", "Queried item: " + item.question)
+                }
+            },
+            { failure -> Log.e("Amplifyy", "Could not query DataStore", failure) }
+        )
 
     }
 
@@ -71,11 +81,9 @@ class SecondFragment : Fragment() {
         _buttons.forEach { it.isEnabled = false }
     }
 
-    fun checkAnswer(button: Button){
+    fun checkAnswer(button: Button, rightAnswer: String){
 
-        val answer = Manager.questions[_index].rightAnswer
-
-        var color = if(button.text.equals(answer)) R.color.ksu_green else R.color.ksu_red
+        var color = if(button.text.equals(rightAnswer)) R.color.ksu_green else R.color.ksu_red
 
         button.setBackgroundTintList(ColorStateList.valueOf(
             ResourcesCompat.getColor(
@@ -85,7 +93,7 @@ class SecondFragment : Fragment() {
 
         Handler(Looper.getMainLooper()).postDelayed({
 
-            Manager.score = if (button.text.equals(answer)) Manager.score + 1 else Manager.score - 1
+            Manager.score = if (button.text.equals(rightAnswer)) Manager.score + 1 else Manager.score - 1
             Manager.progress++
 
             val helper = Helper()

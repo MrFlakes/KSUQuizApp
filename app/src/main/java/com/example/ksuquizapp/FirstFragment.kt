@@ -39,19 +39,6 @@ class FirstFragment : Fragment() {
         Log.i("OnViewCreated", "CreatedView")
 
 
-        Amplify.DataStore.query(
-            Questions::class.java,
-            Where.matches(Questions.QUESTION_NO.eq(1)),
-            { items ->
-                while (items.hasNext()) {
-                    val item = items.next()
-                    Log.i("Amplifyy", "Queried item: " + item.question)
-                }
-            },
-            { failure -> Log.e("Amplifyy", "Could not query DataStore", failure) }
-        )
-
-
         binding.buttonFirst.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
