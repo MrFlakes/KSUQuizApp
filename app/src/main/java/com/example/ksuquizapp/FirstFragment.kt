@@ -15,6 +15,7 @@ import com.example.ksuquizapp.databinding.FragmentFirstBinding
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
+ * Used as the main menu screen.
  */
 class FirstFragment : Fragment() {
 

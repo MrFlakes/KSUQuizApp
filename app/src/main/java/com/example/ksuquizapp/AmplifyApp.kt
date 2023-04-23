@@ -8,6 +8,7 @@ import com.amplifyframework.datastore.AWSDataStorePlugin
 import com.amplifyframework.api.aws.AWSApiPlugin
 
 class AmplifyApp : Application() {
+    //Setup Amplify
     override fun onCreate() {
         super.onCreate()
         Log.d("AppCreate", "Created App")

@@ -8,6 +8,8 @@ import androidx.fragment.app.FragmentActivity
 
 class Helper {
     /**
+     * Helper class which contains a method to refresh the screen after a question is answered.
+     * Taken from https://stackoverflow.com/questions/20702333/refresh-fragment-at-reload
      * Current Activity instance will go through its lifecycle to onDestroy() and a new instance then created after it.
      */
     @SuppressLint("NewApi")

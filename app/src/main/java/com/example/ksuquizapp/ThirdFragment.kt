@@ -16,6 +16,7 @@ import com.example.ksuquizapp.databinding.FragmentThirdBinding
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
+ * Used as the final score screen.
  */
 class ThirdFragment : Fragment() {
 

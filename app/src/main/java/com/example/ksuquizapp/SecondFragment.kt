@@ -20,6 +20,7 @@ import com.example.ksuquizapp.databinding.FragmentSecondBinding
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
+ * Used as the question delivery screen. Most of our logic in the app is written here.
  */
 class SecondFragment : Fragment() {
 
@@ -30,7 +31,6 @@ class SecondFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var _buttons : Array<Button>
-    private var _index : Int = 0
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -51,21 +51,23 @@ class SecondFragment : Fragment() {
         binding.score.text = s
         binding.questionNum.text = q
 
-
+        //Query the database for a question with Question_NO corresponding to how many questions the user has already answered (i.e. progress).
         Amplify.DataStore.query(
             Questions::class.java,
             Where.matches(Questions.QUESTION_NO.eq(Manager.progress)),
             { items ->
                 while (items.hasNext()) {
 
+                    //Store the queried information into a locally scopred array.
                     val item = items.next()
                     binding.questionText.text = item.question
                     _buttons = arrayOf(binding.button1, binding.button2, binding.button3, binding.button4)
-                    _buttons.shuffle()
+                    _buttons.shuffle() //Shuffle the button order so the fourth button does not always contain the right answer.
 
                     for(b in _buttons){
                         b.setOnClickListener{checkAnswer(b, item.correctAnswer)}
                     }
+                    //Set the button text to the queried information.
                     _buttons[0].text = item.answer[0]
                     _buttons[1].text = item.answer[1]
                     _buttons[2].text = item.answer[2]
@@ -78,12 +80,14 @@ class SecondFragment : Fragment() {
 
     }
 
+    //Disable the buttons once a user has answered, so they cannot choose multiple choices.
     fun disableButtons(){
         _buttons.forEach { it.isEnabled = false }
     }
 
     fun checkAnswer(button: Button, rightAnswer: String){
 
+        //Set the button color
         var color = if(button.text.equals(rightAnswer)) R.color.ksu_green else R.color.ksu_red
 
         button.setBackgroundTintList(ColorStateList.valueOf(
@@ -91,18 +95,18 @@ class SecondFragment : Fragment() {
                 getResources(), color, null)))
         disableButtons()
 
-
+        //Delay the screen refresh for 1 second to allow the button color to be changed.
         Handler(Looper.getMainLooper()).postDelayed({
 
-            Manager.score = if (button.text.equals(rightAnswer)) Manager.score + 1 else Manager.score - 1
+            Manager.score = if (button.text.equals(rightAnswer)) Manager.score + 1 else Manager.score - 1 //Update the user's score
 
 
             if(Manager.progress >= Manager.maxScore){
-                findNavController().navigate(R.id.action_SecondFragment_to_thirdFragment)
+                findNavController().navigate(R.id.action_SecondFragment_to_thirdFragment) //If the user has answered 10 questions, show the final score screen.
             } else{
                 Manager.progress++
                 val helper = Helper()
-                helper.recreateActivityCompat(activity)
+                helper.recreateActivityCompat(activity) //Refresh the screen, this triggering the onViewCreated again, but this time with progress increased by 1.
             }
 
         }, 1000)
