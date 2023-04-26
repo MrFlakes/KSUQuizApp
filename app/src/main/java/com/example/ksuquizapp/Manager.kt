@@ -8,4 +8,6 @@ class Manager {
         var progress = 1
         var maxScore = 10
     }
+
+
 }

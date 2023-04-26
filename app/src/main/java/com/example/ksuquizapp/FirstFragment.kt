@@ -39,6 +39,8 @@ class FirstFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Log.i("OnViewCreated", "CreatedView")
 
+        Manager.score = 0
+        Manager.progress = 1
 
         binding.buttonFirst.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)

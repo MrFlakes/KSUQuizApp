@@ -38,6 +38,13 @@ class ThirdFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        var s = "Nice Job!\nYou got ${Manager.score} right!";
+        binding.textView2.text = s;
+
+        binding.buttonFirst.setOnClickListener {
+            findNavController().navigate(R.id.action_thirdFragment_to_FirstFragment)
+        }
     }
 
 
