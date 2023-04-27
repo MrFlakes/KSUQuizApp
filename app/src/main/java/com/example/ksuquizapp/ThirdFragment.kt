@@ -39,7 +39,16 @@ class ThirdFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var s = "Nice Job!\nYou got ${Manager.score} right!";
+        var s = "";
+        if(Manager.score >= 10){
+            s = "Perfect!!!\nYou got ${Manager.score} right!"
+        } else if(Manager.score >= 7 && Manager.score <= 9){
+            s = "Nice Job!\nYou got ${Manager.score} right!"
+        } else if(Manager.score >= 5 && Manager.score <= 8){
+            s = "Not bad.\nYou got ${Manager.score} right!"
+        } else {
+            s = "Uh oh.\nYou only got ${Manager.score} right!"
+        }
         binding.textView2.text = s;
 
         binding.buttonFirst.setOnClickListener {

@@ -65,7 +65,7 @@ class SecondFragment : Fragment() {
                     _buttons.shuffle() //Shuffle the button order so the fourth button does not always contain the right answer.
 
                     for(b in _buttons){
-                        b.setOnClickListener{checkAnswer(b, item.correctAnswer)}
+                        b.setOnClickListener{checkAnswer(b, _buttons, item.correctAnswer)}
                     }
                     //Set the button text to the queried information.
                     _buttons[0].text = item.answer[0]
@@ -85,21 +85,31 @@ class SecondFragment : Fragment() {
         _buttons.forEach { it.isEnabled = false }
     }
 
-    fun checkAnswer(button: Button, rightAnswer: String){
+    fun checkAnswer(clickedButton: Button, buttons: Array<Button>, rightAnswer: String){
 
         //Set the button color
-        var color = if(button.text.equals(rightAnswer)) R.color.ksu_green else R.color.ksu_red
+        var color = if(clickedButton.text.equals(rightAnswer)) R.color.ksu_green else R.color.ksu_red
+        var delay = if(clickedButton.text.equals(rightAnswer)) 1500 else 4000
 
-        button.setBackgroundTintList(ColorStateList.valueOf(
+        clickedButton.setBackgroundTintList(ColorStateList.valueOf(
             ResourcesCompat.getColor(
                 getResources(), color, null)))
+
+        for(b in _buttons){
+            if(b.text.equals(rightAnswer)){
+                b.setBackgroundTintList(ColorStateList.valueOf(
+                    ResourcesCompat.getColor(
+                        getResources(), R.color.ksu_green, null)))
+            }
+        }
+
         disableButtons()
 
         //Delay the screen refresh for 1 second to allow the button color to be changed.
         Handler(Looper.getMainLooper()).postDelayed({
 
-            Manager.score = if (button.text.equals(rightAnswer)) Manager.score + 1 else Manager.score - 1 //Update the user's score
-
+            Manager.score = if (clickedButton.text.equals(rightAnswer)) Manager.score + 1 else Manager.score //Update the user's score
+            Manager.score = Manager.score.coerceIn(0, Manager.maxScore)
 
             if(Manager.progress >= Manager.maxScore){
                 findNavController().navigate(R.id.action_SecondFragment_to_thirdFragment) //If the user has answered 10 questions, show the final score screen.
@@ -109,7 +119,7 @@ class SecondFragment : Fragment() {
                 helper.recreateActivityCompat(activity) //Refresh the screen, this triggering the onViewCreated again, but this time with progress increased by 1.
             }
 
-        }, 1000)
+        }, delay.toLong())
     }
     override fun onDestroyView() {
         super.onDestroyView()
